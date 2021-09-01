@@ -1,0 +1,45 @@
+# Define environment
+language: bash
+
+# Export variables
+env:
+  - tf_version=1.0.5 tf_init_cli_options="-input=false" tf_validation_cli_options="" tf_plan_cli_options="-lock=false -input=false" tf_apply_cli_options="-auto-approve -input=false"
+  
+# Only build pushes to master branch
+branches:
+  only:
+  - "/^(feature|bugfix)\\/SCC-605_travis+.*$/"
+    
+# Install dependencies
+before_install:
+  #- set -x #echo on
+  - sudo rm -Rf terraform_1.0.5_linux_amd64.zip
+  - sudo rm -Rf terraform
+  - wget https://releases.hashicorp.com/terraform/1.0.5/terraform_1.0.5_linux_amd64.zip
+  - echo $(ls)
+  - unzip terraform_1.0.5_linux_amd64.zip
+  - sudo mv terraform /usr/local/bin/
+  - rm terraform_1.0.5_linux_amd64.zip
+  - chmod +x ./deploy.sh
+  - echo $TRAVIS_BRANCH
+  
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: ./deploy.sh
+  on:
+    all_branches: true
+    condition: "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} =~ ^(feature|bugfix)\\/SCC-605_travis+.*$"
+
+env:
+  global:
+  # ACCESS_KEY_ID 
+  - secure: "BpTXB9irj2gh52X5+YMjZeUW0UuhmCwArZNBNQf8/4I3t2lw+QyUAUdkO/K/+GVAOhf/LIQG2j/RWiOSimGkUHvBqvlCxcLCpTnmldr4koOiCL+3jVstXZKpEQNwEuU6h0vNNRsApV7M71gIZBTZTTRtqJ1m9jVBp9esm6fsnF9krMOdNIJdFCHLkFtIruibSl16O93clOxJ++Is2sjlXEyrqnfvArCk1c9Cqzmtg0puXXJaTLH+dZfaHr7eB1fMqgX028K6Wd7Sxiz9lTCCFqHHIGfNgs5jKx9Bz0PG8NQ/yNvNCV8ay1zCxhEAu3PSI+8GWVYgtlhBMNYKyBqgx27tCcWibr9pLsRKAeZ0K84N/zV3TjGZP2CSAU1u4zhDQql1y0YJpH7KlRu2zpy5E9y7wGg2XCx9nCJGfWBgRibkjo+dKvVFrru5uesKDBKnnnQ9dX6DZFZ8umGRuUxm7PGbvdzgJascCRTyg8hTsNruAwZa0ojbSLovgtIUKfYG/TIuyKKx8Azu3AiLUQej3JMvqzOdMNyBBg7zM1SHq4I25U5UMHPU4JFu9x+1LSAdfJVG1QJIwI3WNuBJXpuzoO2Cn8vGL+gIzJEjW2weaVHIff0HXhAPhP/uVemd9mMnW9CBjTsYEex9Y/tTdWpVTql0C0rhLaEnUBUd1VNYuFA="
+  # SECRET_ACCESS_KEY
+  - secure: "byETvIx2AwpqxEF0AwzK5TXY6wPvbxfLNrTCXjVvCwvlsWvBhqU+YMAHiVc7gj+PRYZeHc/HpPcP+3GzfDnCR8ijtXTkLvn4UgwPDP7rvG9encgULYGCqglbp7W1l3y+aAH7WAwibxVVQQtPtefnL7EygGpqOhFSbYOiwR4d2rBTL8mUxAYwXFglzXwAERv7tkZQM9W34qYssJdOYbl8AzQbslXtik2EBQJncac0RAdBkJV4XuBz1lc93ABgCW/jSw6Z/CE2plEAYTHAo3zjTIEo/nH74iLemSDsHBnEltVXVaB/TgReSfxLkd1UIYCkd1nbKRLvCPskGL8fZAVSk6JBeuLM9ynxamtSXh+BUFniv57QDzlJdpksgqdHGOOue4ZWBWWPiCGoP0gsrS4BHlprQbOa3sWzvhoi+b15moZBgPnz8EtOJEVm9j5CHcBiTLgeiecVfSbPvoUEiiuftg76t9OWlt5x8iymt6OLhdNSpoMQuza5ismwq0hpXuexPpik623MQBecHEUPSVs32tfdZI5TkHBOp8RM+4tzsff051asRQIGzrReeeNYHlaOL5swsCkxVrFzio+bVwtxYApYv0TtZ0pKmd0Tz9MNAa0ufCz8nCPp3QevPS+28wsIWJ4kWiuOhX6O63NNI5rRXs/9RgPJZF4ieqkR0b9ux/g="
+  # S3_STATE_BUCKET_NAME
+  - secure: "tUzkjsaqzmj4r9n12uOtQAdxrXYYWJY6pqZQQ8Q9oyabRcnNIJ6DXvlPueSamp86m09huNPlN5B4RZlONtSe9Rj0Yg1JJfeFvfaXxZXL2bTitZo0BPyNDinjZIP3WUjoSwqGprrPiHoQpFwPYB4WMbR/K3CQ09GmbQu43M1Qd0lIsPf8cqYkPWkBGUK889KKB3ta3BCnfhtupDuiKwfXxsI4cUWr9r1Pe3I+UU3gdvy42PWZoozyGW/O+Sr4tGlepX2Q23VJ2sBQmU8JEsXKFGKRdYSjViAkTw6zq22SMK7/l+QlFf2QGKaMApp8U/TVXK8fAUrR202dM8rmMJHJnvJ4NBzniS39qj4AXlbF3VTd0KJZergR9egVaYB/Y4lgdB1PryLFjlzhC2yoBW4PJkO9a1RRmR8QnqCvhP4FNnY/aZhFM+MVxjMvMJxJdFWYSeyRR+Q1ZTYQ7+qVFNvdtr+jFGWvMZsL9AByhCfncUYAIVU1fkgeUrvy36zwJdxO0+P1bJ7soLSGNOvWImGM6ZQKkysB+dN+3K8qre3TB5ZaTQdRXAxJ+0k9JGByT/KdsSycWctuHIwIPqAQ70AHzlMFDekNE3ddUHKovFnbZ5yHVwkDAsxaidSoQBfx6vq/GsQ58NgRJVqCQU7ZsSztz8GkSawHq9aLdWBw05yp/Og="
+  # CF_USERNAME
+  - secure: "WWqlcyI6dQJXNKpx2FKi1Yae/SpmbVW4kbgeBT4MOS/lfCVHcXpefU4MCs3q2HOXELLTRquTcDIvqg5VNk0ENnQCFwBtjDyV618ewd6Xh7CAGUPqyy5Js/W1Qms007oKYb2XgfS8p4/+3cbYK/GdkvY3nxzQSkKzLQq4acJdHFSQCfXIxRk5yo+YxUf4yMSROBdUipG+A0xnfnenySKX9TspvPbDUkHqsxDqbqIgEuuNBW+SkLLYk/XUIYMP9ai5TGxiWd4TDQSbLRKkLV0rFy7y5bq9IYVjGOr8IyiOVeELW1nt270U989bZ1hcEgmdgJa48eBuoSB3//nCPNkqrVrNbsOgufqQn5AbsC+IpOFKjKvAF8jAN5Y0b1VY1+iW5u9qH06vISXq6TX4KbNbZbKvrsPfK6EC1sz/1nhbLAkeLw1djqC6tjccKaGs1GQ21FV1c5kFQkTgpMCAudq5GpcDpXPNwiV4CoQ+Xj1oVbFKpLnqsdIQVjuh1Uf22WvOk5V1T6N+Cr8UlyTFwr4niiY40D+Dch5lb+FAmUGEPOGIlEE3TTyF2a8jwyt3VP+CMNm/Y8z46OcKRpVvX46ycwZgDnqDjI63kLcD5lNLgGaphJrX+fNvUfmm4dmZcR/9fC+0Z8z7oP5r1m6KhfgH6UbBsHDR8HFzYA38VmeIhp8="
+  # CF_PASSWORD
+  - secure: "L1fu+5E1S69o+stftNeF8TLKhtNjnkpZBk4nx3ITTkiwpAJVuD5wTchc5/AwZr8wRVbj3oAIHsC+6lP6ocIXHckudyIiLkQoYljaUfbztYOhnb7Ud6W0kRNj9ZCo4bMYqSz1FdSZQZOlX7NOTXr9BBMuo1SXh6eJC9Sa07cn9AYPq4h8lCPWLbh7wQQD9vpuwcL2jlnkajgdWY/R4kD0Ub/vtsybRXeO3jbzDhizyWyJJMx3tyWmGAR+H2BQO24qFWk4zcr+OjrN0b14b9ruAmpRxkVvVstP9pnqmQNXsKMO5NzEQvDw22XCZBH2TN0pG1obsVcWr/F/xwAKgCvvN+DtmPyKMxnkqnL3PfMqSa6ygPLhWNRzrdqf80qAxiRMSqt3DMgpiQzlYKHQ0YSNFDBupR39fux0lE6WO2xuF0eLShBzwg+XunDGs5cJmdUIg2xx+8LW0Si0edvz6XX7kh/M9mMSgrJDOzVuEhQ1sCkSHPGUbuvHraoV/Ty0WiIOdAJ6P8JAGVCPUyAOH5mMolyVo8uB0z3CGRhSQmHz6nLv1WGdPx/q0mkhBZl7OaAdZUpSVLuVUlnAKmiSeMJXIi8D5d5XucA2n+8JyqDC2q8YgmbpccDwYNYKngTYAbw2EDTDwe7fy1ehq2QehhGW4RWgUz2NrHDvvZtQ/xnOpMY="
