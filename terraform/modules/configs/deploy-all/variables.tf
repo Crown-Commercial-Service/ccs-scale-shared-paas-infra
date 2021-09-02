@@ -7,7 +7,7 @@ variable "space" {}
 variable "environment" {}
 
 variable "postgres_instance_name" {
-  default = "agreements-pg-service"
+  default = "agreements-pg-db"
 }
 
 variable "postgres_service_plan" {

@@ -3,12 +3,6 @@
 #
 # This configuration will deploy all components.
 #########################################################
-
-#########################################################
-# Config: deploy-all
-#
-# This configuration will deploy all components.
-#########################################################
 module "agreements-database" {
   source                 = "../../agreements-db"
   organisation           = var.organisation

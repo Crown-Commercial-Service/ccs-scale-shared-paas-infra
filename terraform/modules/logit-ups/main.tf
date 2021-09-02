@@ -1,3 +1,8 @@
+#########################################################
+# Logging: logit.io
+#
+# This will configure a log drain service to logit.io.
+#########################################################
 data "cloudfoundry_org" "ccs_conclave_cii" {
   name = var.organisation
 }
