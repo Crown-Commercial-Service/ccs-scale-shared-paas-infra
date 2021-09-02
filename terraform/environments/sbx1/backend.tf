@@ -6,7 +6,7 @@
 # terraform init \
 #    -backend-config="access_key=ACCESS_KEY_ID" \
 #    -backend-config="secret_key=SECRET_ACCESS_KEY" \
-#    -backend-config="bucket=S3_BUCKET_NAME"
+#    -backend-config="bucket=S3_STATE_BUCKET_NAME"
 #########################################################
 terraform {
   backend "s3" {

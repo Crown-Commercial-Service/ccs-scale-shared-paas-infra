@@ -8,7 +8,7 @@ Some commands first need to be run to create the S3 bucket that will subsequentl
 
 2. View the AWS credentials to access the bucket using the command `cf service-key terraform-state terraform-state-key`. 
 
-3. These credentials will need to be supplied during the `terraform init` operation to setup the backend. `cd` to the `terraform/environments/{ENV}` folder corresponding to the environment you are provisioning, and execute the following command to initialise the backend:
+3. These credentials will need to be supplied during the `terraform init` operation to setup the backend. `cd` to the `terraform/environments/{env}` folder corresponding to the environment you are provisioning, and execute the following command to initialise the backend:
 
 ```
 terraform init \
@@ -17,9 +17,9 @@ terraform init \
    -backend-config="{bucket=S3_STATE_BUCKET_NAME}" \
 ```
 
-Note: some static/non-senstive options are supplied in the `backend.tf` file. These sensitive options are supplied via command line only (this may change if we can use valut or similar).
+Note: some static/non-sensitive options are supplied in the `backend.tf` file. Any sensitive config supplied via command line only (this may change in the future if we can use Vault or similar).
 
-This will ensure all Terraform state is now stored in the S3 bucket provisioned in the space you are working in.
+This will ensure all Terraform state is now stored in the S3 bucket provisioned in the space you are working in. There is no DynamoDB lock table, but it is unlikely we would be running scripts concurrently in the same space.
 
 ## Provision the service infrastructure
 
