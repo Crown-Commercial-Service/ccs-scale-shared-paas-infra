@@ -11,9 +11,9 @@ variable "space" {}
 variable "syslog_drain_url" {}
 
 variable "cf_username" {
-  #sensitive = true
+  sensitive = true
 }
 
 variable "cf_password" {
-  #sensitive = true
+  sensitive = true
 }

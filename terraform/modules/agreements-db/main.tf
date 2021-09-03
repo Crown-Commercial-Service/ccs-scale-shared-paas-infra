@@ -7,13 +7,13 @@ data "cloudfoundry_service" "postgres" {
   name = "postgres"
 }
 
-data "cloudfoundry_org" "ccs_conclave_cii" {
+data "cloudfoundry_org" "shared" {
   name = var.organisation
 }
 
 data "cloudfoundry_space" "cloudfoundry_space" {
   name = var.space
-  org  = data.cloudfoundry_org.ccs_conclave_cii.id
+  org  = data.cloudfoundry_org.shared.id
 }
 
 resource "cloudfoundry_service_instance" "postgres" {

@@ -9,9 +9,9 @@ variable "postgres_instance_name" {}
 variable "postgres_service_plan" {}
 
 variable "cf_username" {
-  #sensitive = true
+  sensitive = true
 }
 
 variable "cf_password" {
-  #sensitive = true
+  sensitive = true
 }
