@@ -8,7 +8,9 @@ env:
 # Only build pushes to master branch
 branches:
   only:
-  - "/^(feature|bugfix)\\/SCC-605_travis+.*$/"
+  - "/^(feature|bugfix)\\/SCC-[0-9]+.*$/"
+  - develop
+  - main
     
 # Install dependencies
 before_install:
