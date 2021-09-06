@@ -16,21 +16,35 @@ before_install:
   - sudo rm -Rf terraform_1.0.5_linux_amd64.zip
   - sudo rm -Rf terraform
   - wget https://releases.hashicorp.com/terraform/1.0.5/terraform_1.0.5_linux_amd64.zip
-  - echo $(ls)
   - unzip terraform_1.0.5_linux_amd64.zip
   - sudo mv terraform /usr/local/bin/
   - rm terraform_1.0.5_linux_amd64.zip
   - chmod +x ./deploy.sh
-  - echo $TRAVIS_BRANCH
-  
+
 deploy:
+
+# SBX - modify CF_APP_PREFIX as required
 - provider: script
   skip_cleanup: true
-  script: ./deploy.sh
+  script: CF_ENVIRONMENT=sbx1 bash ./deploy.sh
   on:
     all_branches: true
-    condition: "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} =~ ^(feature|bugfix)\\/SCC-605_travis+.*$"
+    condition: "${TRAVIS_PULL_REQUEST_BRANCH:-$TRAVIS_BRANCH} =~ ^(feature|bugfix)\\/SCC-[0-9]+.*$"
 
+# DEVELOP    
+- provider: script
+  skip_cleanup: true
+  script: CF_ENVIRONMENT=dev bash ./deploy.sh
+  on:
+    branch: develop
+    
+# INT (SIT)    
+- provider: script
+  skip_cleanup: true
+  script: CF_ENVIRONMENT=int bash ./deploy.sh
+  on:
+    branch: main
+    
 env:
   global:
   # ACCESS_KEY_ID 
