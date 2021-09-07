@@ -10,12 +10,12 @@ branches:
     
 # Install dependencies
 before_install:
-  - sudo rm -Rf terraform_$TF_VERSION_linux_amd64.zip
+  - sudo rm -Rf terraform_"$TF_VERSION"_linux_amd64.zip
   - sudo rm -Rf terraform
-  - wget https://releases.hashicorp.com/terraform/$TF_VERSION/terraform_$TF_VERSION_linux_amd64.zip
-  - unzip terraform_$TF_VERSION_linux_amd64.zip
+  - wget https://releases.hashicorp.com/terraform/"$TF_VERSION"/terraform_"$TF_VERSION"_linux_amd64.zip
+  - unzip terraform_"$TF_VERSION"_linux_amd64.zip
   - sudo mv terraform /usr/local/bin/
-  - rm terraform_$TF_VERSION_linux_amd64.zip
+  - rm terraform_"$TF_VERSION"_linux_amd64.zip
 
 deploy:
 
@@ -43,7 +43,6 @@ deploy:
     
 env:
   global:
-  - TF_VERSION=1.0.5
   # ACCESS_KEY_ID 
   - secure: "BpTXB9irj2gh52X5+YMjZeUW0UuhmCwArZNBNQf8/4I3t2lw+QyUAUdkO/K/+GVAOhf/LIQG2j/RWiOSimGkUHvBqvlCxcLCpTnmldr4koOiCL+3jVstXZKpEQNwEuU6h0vNNRsApV7M71gIZBTZTTRtqJ1m9jVBp9esm6fsnF9krMOdNIJdFCHLkFtIruibSl16O93clOxJ++Is2sjlXEyrqnfvArCk1c9Cqzmtg0puXXJaTLH+dZfaHr7eB1fMqgX028K6Wd7Sxiz9lTCCFqHHIGfNgs5jKx9Bz0PG8NQ/yNvNCV8ay1zCxhEAu3PSI+8GWVYgtlhBMNYKyBqgx27tCcWibr9pLsRKAeZ0K84N/zV3TjGZP2CSAU1u4zhDQql1y0YJpH7KlRu2zpy5E9y7wGg2XCx9nCJGfWBgRibkjo+dKvVFrru5uesKDBKnnnQ9dX6DZFZ8umGRuUxm7PGbvdzgJascCRTyg8hTsNruAwZa0ojbSLovgtIUKfYG/TIuyKKx8Azu3AiLUQej3JMvqzOdMNyBBg7zM1SHq4I25U5UMHPU4JFu9x+1LSAdfJVG1QJIwI3WNuBJXpuzoO2Cn8vGL+gIzJEjW2weaVHIff0HXhAPhP/uVemd9mMnW9CBjTsYEex9Y/tTdWpVTql0C0rhLaEnUBUd1VNYuFA="
   # SECRET_ACCESS_KEY
@@ -54,3 +53,4 @@ env:
   - secure: "WWqlcyI6dQJXNKpx2FKi1Yae/SpmbVW4kbgeBT4MOS/lfCVHcXpefU4MCs3q2HOXELLTRquTcDIvqg5VNk0ENnQCFwBtjDyV618ewd6Xh7CAGUPqyy5Js/W1Qms007oKYb2XgfS8p4/+3cbYK/GdkvY3nxzQSkKzLQq4acJdHFSQCfXIxRk5yo+YxUf4yMSROBdUipG+A0xnfnenySKX9TspvPbDUkHqsxDqbqIgEuuNBW+SkLLYk/XUIYMP9ai5TGxiWd4TDQSbLRKkLV0rFy7y5bq9IYVjGOr8IyiOVeELW1nt270U989bZ1hcEgmdgJa48eBuoSB3//nCPNkqrVrNbsOgufqQn5AbsC+IpOFKjKvAF8jAN5Y0b1VY1+iW5u9qH06vISXq6TX4KbNbZbKvrsPfK6EC1sz/1nhbLAkeLw1djqC6tjccKaGs1GQ21FV1c5kFQkTgpMCAudq5GpcDpXPNwiV4CoQ+Xj1oVbFKpLnqsdIQVjuh1Uf22WvOk5V1T6N+Cr8UlyTFwr4niiY40D+Dch5lb+FAmUGEPOGIlEE3TTyF2a8jwyt3VP+CMNm/Y8z46OcKRpVvX46ycwZgDnqDjI63kLcD5lNLgGaphJrX+fNvUfmm4dmZcR/9fC+0Z8z7oP5r1m6KhfgH6UbBsHDR8HFzYA38VmeIhp8="
   # CF_PASSWORD
   - secure: "L1fu+5E1S69o+stftNeF8TLKhtNjnkpZBk4nx3ITTkiwpAJVuD5wTchc5/AwZr8wRVbj3oAIHsC+6lP6ocIXHckudyIiLkQoYljaUfbztYOhnb7Ud6W0kRNj9ZCo4bMYqSz1FdSZQZOlX7NOTXr9BBMuo1SXh6eJC9Sa07cn9AYPq4h8lCPWLbh7wQQD9vpuwcL2jlnkajgdWY/R4kD0Ub/vtsybRXeO3jbzDhizyWyJJMx3tyWmGAR+H2BQO24qFWk4zcr+OjrN0b14b9ruAmpRxkVvVstP9pnqmQNXsKMO5NzEQvDw22XCZBH2TN0pG1obsVcWr/F/xwAKgCvvN+DtmPyKMxnkqnL3PfMqSa6ygPLhWNRzrdqf80qAxiRMSqt3DMgpiQzlYKHQ0YSNFDBupR39fux0lE6WO2xuF0eLShBzwg+XunDGs5cJmdUIg2xx+8LW0Si0edvz6XX7kh/M9mMSgrJDOzVuEhQ1sCkSHPGUbuvHraoV/Ty0WiIOdAJ6P8JAGVCPUyAOH5mMolyVo8uB0z3CGRhSQmHz6nLv1WGdPx/q0mkhBZl7OaAdZUpSVLuVUlnAKmiSeMJXIi8D5d5XucA2n+8JyqDC2q8YgmbpccDwYNYKngTYAbw2EDTDwe7fy1ehq2QehhGW4RWgUz2NrHDvvZtQ/xnOpMY="
+  - TF_VERSION=1.0.5
