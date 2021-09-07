@@ -20,7 +20,6 @@ before_install:
   - unzip terraform_1.0.5_linux_amd64.zip
   - sudo mv terraform /usr/local/bin/
   - rm terraform_1.0.5_linux_amd64.zip
-  - chmod +x ./deploy.sh
 
 deploy:
 
