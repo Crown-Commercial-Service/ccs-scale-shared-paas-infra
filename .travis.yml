@@ -19,7 +19,7 @@ before_install:
 
 deploy:
 
-# SBX - modify CF_APP_PREFIX as required
+# SBX - modify CF_ENVIRONMENT as required
 - provider: script
   skip_cleanup: true
   script: CF_ENVIRONMENT=sbx1 bash ./deploy.sh

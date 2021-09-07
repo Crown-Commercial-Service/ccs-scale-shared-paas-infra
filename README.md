@@ -21,7 +21,15 @@ Note: some static/non-sensitive options are supplied in the `backend.tf` file. A
 
 This will ensure all Terraform state is now stored in the S3 bucket provisioned in the space you are working in. There is no DynamoDB lock table, but it is unlikely we would be running scripts concurrently in the same space.
 
-## Provision the service infrastructure
+## Provision the service infrastructure via Travis
+
+The main environments are provisioned automatically via Travis CI. Merges to key branches will trigger an automatic deployment to certain environments - mapped below:
+
+* `develop` branch -> `development` space
+* `main` branch -> `INT` space
+* other environments TBD (these mappings may change as we evolve the process as more environments come online)
+* feature branches can be deployed to specific sandboxes by making minor changes in the `travis.yml` file (follow instructions)
+## Provision the service infrastructure from a local machine
 
 We use Terraform to provision the underlying service infrastructure in a space. We will need to supply the Cloud Foundry login credentials for the user who will provision the infrastructure (Note: it may be better to create a special account for this).
 
