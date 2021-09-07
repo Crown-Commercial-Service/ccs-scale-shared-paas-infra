@@ -6,9 +6,3 @@ terraform {
     }
   }
 }
-
-provider "cloudfoundry" {
-  api_url = "https://api.london.cloud.service.gov.uk"
-  user    = var.cf_username
-  # password = var.cf_password
-}

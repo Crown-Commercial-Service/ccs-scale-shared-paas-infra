@@ -1,5 +1,5 @@
 variable "logit_service_broker_name" {
-    default = "logit-ssl-drain"
+  default = "logit-ssl-drain"
 }
 
 variable "environment" {}

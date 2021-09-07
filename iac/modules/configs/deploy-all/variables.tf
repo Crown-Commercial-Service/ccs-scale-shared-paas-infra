@@ -23,3 +23,9 @@ variable "cf_password" {
 }
 
 variable "syslog_drain_url" {}
+
+variable "allowed_ips" {
+  default = <<EOT
+allow 0.0.0.0/0;
+EOT
+}
