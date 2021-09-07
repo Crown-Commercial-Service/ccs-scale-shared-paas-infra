@@ -1,9 +1,5 @@
 # Define environment
 language: bash
-
-# Export variables
-env:
-  - TF_VERSION=1.0.5
   
 # Only build pushes to master branch
 branches:
@@ -47,6 +43,7 @@ deploy:
     
 env:
   global:
+  - TF_VERSION=1.0.5
   # ACCESS_KEY_ID 
   - secure: "BpTXB9irj2gh52X5+YMjZeUW0UuhmCwArZNBNQf8/4I3t2lw+QyUAUdkO/K/+GVAOhf/LIQG2j/RWiOSimGkUHvBqvlCxcLCpTnmldr4koOiCL+3jVstXZKpEQNwEuU6h0vNNRsApV7M71gIZBTZTTRtqJ1m9jVBp9esm6fsnF9krMOdNIJdFCHLkFtIruibSl16O93clOxJ++Is2sjlXEyrqnfvArCk1c9Cqzmtg0puXXJaTLH+dZfaHr7eB1fMqgX028K6Wd7Sxiz9lTCCFqHHIGfNgs5jKx9Bz0PG8NQ/yNvNCV8ay1zCxhEAu3PSI+8GWVYgtlhBMNYKyBqgx27tCcWibr9pLsRKAeZ0K84N/zV3TjGZP2CSAU1u4zhDQql1y0YJpH7KlRu2zpy5E9y7wGg2XCx9nCJGfWBgRibkjo+dKvVFrru5uesKDBKnnnQ9dX6DZFZ8umGRuUxm7PGbvdzgJascCRTyg8hTsNruAwZa0ojbSLovgtIUKfYG/TIuyKKx8Azu3AiLUQej3JMvqzOdMNyBBg7zM1SHq4I25U5UMHPU4JFu9x+1LSAdfJVG1QJIwI3WNuBJXpuzoO2Cn8vGL+gIzJEjW2weaVHIff0HXhAPhP/uVemd9mMnW9CBjTsYEex9Y/tTdWpVTql0C0rhLaEnUBUd1VNYuFA="
   # SECRET_ACCESS_KEY
