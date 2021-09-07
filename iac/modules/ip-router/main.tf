@@ -21,8 +21,8 @@ data "archive_file" "nginx" {
 }
 
 resource "cloudfoundry_app" "nginx" {
-  buildpack = "nginx_buildpack"
-  disk_quota  = var.disk_quota
+  buildpack  = "nginx_buildpack"
+  disk_quota = var.disk_quota
   environment = {
     ALLOWED_IPS : var.allowed_ips
   }
