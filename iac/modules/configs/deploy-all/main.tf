@@ -15,11 +15,19 @@ module "agreements-database" {
 }
 
 module "logit-ups" {
-  source                    = "../../logit-ups"
-  organisation              = var.organisation
-  space                     = var.space
-  environment               = var.environment
-  syslog_drain_url          = var.syslog_drain_url
-  cf_username               = var.cf_username
-  cf_password               = var.cf_password
+  source           = "../../logit-ups"
+  organisation     = var.organisation
+  space            = var.space
+  environment      = var.environment
+  syslog_drain_url = var.syslog_drain_url
+  cf_username      = var.cf_username
+  cf_password      = var.cf_password
+}
+
+module "ip-router" {
+  source       = "../../ip-router"
+  organisation = var.organisation
+  space        = var.space
+  environment  = var.environment
+  allowed_ips  = var.allowed_ips
 }
