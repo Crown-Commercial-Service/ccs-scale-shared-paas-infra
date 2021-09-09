@@ -10,7 +10,7 @@
 #########################################################
 terraform {
   backend "s3" {
-    key    = "shared/infra"
+    key    = "ccs-scale-shared-paas-infra-sbx2"
     region = "eu-west-2"
   }
 }

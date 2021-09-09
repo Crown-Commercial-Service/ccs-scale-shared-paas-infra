@@ -4,7 +4,7 @@
 
 Some commands first need to be run to create the S3 bucket that will subsequently be used to hold Terraform state files remotely. This is a one time task to be done in a new space prior to provisioning the infrastructure.
 
-1. Run script at `/boostrap/create-tf-state=bucket.sh` - this will create an S3 bucket and service key
+1. Run script at `/boostrap/create-tf-state=bucket.sh` in the `management` space - this will create an S3 bucket and service key that will be used by all non-prod spaces.
 
 2. View the AWS credentials to access the bucket using the command `cf service-key terraform-state terraform-state-key`. 
 
