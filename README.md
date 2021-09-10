@@ -4,7 +4,7 @@
 
 Some commands first need to be run to create the S3 bucket that will subsequently be used to hold Terraform state files remotely. This is a one time task to be done in a new space prior to provisioning the infrastructure.
 
-1. Run script at `/boostrap/create-tf-state=bucket.sh` - this will create an S3 bucket and service key
+1. Run script at `/boostrap/create-tf-state=bucket.sh` in the `management` space - this will create an S3 bucket and service key that will be used by all non-prod spaces.
 
 2. View the AWS credentials to access the bucket using the command `cf service-key terraform-state terraform-state-key`. 
 
@@ -44,28 +44,45 @@ Assume one of these approaches is used in the commands below (TBD)
 1. Run `terraform plan` to confirm the changes look ok
 2. Run `terraform apply` to provision the resources
 
-## Populate the database
+## Create Tables
 
 The Terraform scripts will provision an empty Agreements Database. We need to create the tables and populate with data. 
 
 Prerequisite - install conduit on your local machine (see https://docs.cloud.service.gov.uk/deploying_services/postgresql/#connect-to-a-postgresql-service-from-your-app for details)
 
-The scripts are located here: https://github.com/Crown-Commercial-Service/ccs-scale-db-scripts/blob/develop/agreements. Check this repository out and `cd` to the agreements folder 
+The scripts are located here: https://github.com/Crown-Commercial-Service/ccs-scale-db-scripts. Checkout the `bat/develop` branch and `cd` to the agreements folder. 
 
-2. Create the tables `cf conduit {env}-agreements-pg-db -- psql < ddl.sql`
+1. Create the tables using `cf conduit {env}-agreements-pg-db -- psql < ddl.sql`
 
-3. Populate the data - there are a number of scripts to run, documented in the `provision-agreements-database.sh` file - use the same command as above, working down the list of files (note: can copy/paste these into a terminal and it will work through them - need to update {env} first of course)
+## Populate Data
+
+The scripts are located here: https://github.com/Crown-Commercial-Service/ccs-scale-db-scripts-data. Checkout the `bat/develop` branch.
+
+
+1. Populate the data - there are a number of scripts to run, documented in the `provision-agreements-database.sh` file - use the same command as above, working down the list of files (note: can copy/paste these into a terminal and it will work through them - need to update {env} first of course)
 
 ```
-cf conduit {env}-agreements-pg-db -- psql < create_commercial_agreements.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lots.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lot_rules.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lot_related_lots.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lot_rule_attributes.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lot_rule_transaction_objects.sql
-cf conduit {env}-agreements-pg-db -- psql < create_commercial_agreement_contacts.sql
-cf conduit {env}-agreements-pg-db -- psql < create_sectors.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lot_sectors.sql
-cf conduit {env}-agreements-pg-db -- psql < create_route_to_market.sql
-cf conduit {env}-agreements-pg-db -- psql < create_lot_route_to_market.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_commercial_agreements.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_role_types.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_contact_details.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_contact_point_reasons.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lots.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_organisations.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_people.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_route_to_market.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_sectors.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_organisation_roles.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_people_roles.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_rules.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_related_lots.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_rule_attributes.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_rule_transaction_objects.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_sectors.sql 
+cf conduit {env}-agreements-pg-db -- psql < insert_lot_route_to_market.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_commercial_agreement_documents.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_contact_point_lot_prs.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_contact_point_lot_ors.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_contact_point_commercial_agreement_ors.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_commercial_agreement_benefits.sql
+cf conduit {env}-agreements-pg-db -- psql < insert_commercial_agreement_updates.sql
 ```
