@@ -6,10 +6,6 @@ variable "space" {}
 
 variable "environment" {}
 
-variable "postgres_instance_name" {
-  default = "agreements-pg-db"
-}
-
 variable "postgres_service_plan" {
   default = "tiny-unencrypted-12-high-iops"
 }
