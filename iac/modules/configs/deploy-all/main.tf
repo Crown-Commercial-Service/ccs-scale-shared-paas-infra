@@ -29,5 +29,5 @@ module "ip-router" {
   organisation = var.organisation
   space        = var.space
   environment  = var.environment
-  allowed_ips  = var.allowed_ips
+  allowed_ips  = join("\n", [var.allowed_ips, var.env_allowed_ips])
 }

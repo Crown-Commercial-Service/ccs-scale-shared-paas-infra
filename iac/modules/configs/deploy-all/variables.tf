@@ -35,3 +35,7 @@ allow 203.99.209.0/24;   # Cog External VPN
 allow 18.133.142.117/32; # Cog 'SCALE Test Machine 3' in NFT
 EOT
 }
+
+variable env_allowed_ips {
+  default = ""
+}
