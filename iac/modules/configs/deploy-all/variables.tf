@@ -6,12 +6,8 @@ variable "space" {}
 
 variable "environment" {}
 
-variable "postgres_instance_name" {
-  default = "agreements-pg-db"
-}
-
-variable "postgres_service_plan" {
-  default = "tiny-unencrypted-12-high-iops"
+variable "agreements_db_service_plan" {
+  default = "small-ha-12"
 }
 
 variable "cf_username" {
@@ -24,8 +20,10 @@ variable "cf_password" {
 
 variable "syslog_drain_url" {}
 
-variable "allowed_ips" {
-  default = <<EOT
-allow 0.0.0.0/0;
-EOT
+variable "ip_router_instances" {
+  default = 2
+}
+
+variable "ip_router_memory" {
+  default = 1024
 }

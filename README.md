@@ -14,7 +14,8 @@ Some commands first need to be run to create the S3 bucket that will subsequentl
 terraform init \
    -backend-config="access_key=AWS_ACCESS_KEY_ID" \
    -backend-config="secret_key=AWS_SECRET_ACCESS_KEY" \
-   -backend-config="{bucket=S3_STATE_BUCKET_NAME}" \
+   -backend-config="bucket=S3_STATE_BUCKET_NAME" \
+   -backend-config="dynamodb_table=DDB_LOCK_TABLE_NAME"
 ```
 
 Note: some static/non-sensitive options are supplied in the `backend.tf` file. Any sensitive config supplied via command line only (this may change in the future if we can use Vault or similar).
@@ -26,7 +27,8 @@ This will ensure all Terraform state is now stored in the S3 bucket provisioned 
 The main environments are provisioned automatically via Travis CI. Merges to key branches will trigger an automatic deployment to certain environments - mapped below:
 
 * `develop` branch -> `development` space
-* `main` branch -> `INT` space
+* `release/int` branch -> `int` space
+* `release/nft` branch -> `nft` space
 * other environments TBD (these mappings may change as we evolve the process as more environments come online)
 * feature branches can be deployed to specific sandboxes by making minor changes in the `travis.yml` file (follow instructions)
 ## Provision the service infrastructure from a local machine

@@ -10,8 +10,13 @@
 #########################################################
 terraform {
   backend "s3" {
-    key    = "ccs-scale-shared-paas-infra-sbx1"
-    region = "eu-west-2"
+    key     = "ccs-scale-shared-paas-infra-sbx1"
+    region  = "eu-west-2"
+    encrypt = true
   }
 }
 
+provider "aws" {
+  profile = "default"
+  region  = "eu-west-2"
+}

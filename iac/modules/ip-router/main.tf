@@ -20,11 +20,20 @@ data "archive_file" "nginx" {
   output_path = "${path.module}/.build/nginx.zip"
 }
 
+data "aws_ssm_parameter" "allowed_ip_ranges" {
+  name = "/cat/default/allowed-ip-ranges"
+}
+
+# Must be present, may be ' '
+data "aws_ssm_parameter" "env_allowed_ip_ranges" {
+  name = "/cat/${var.environment}/allowed-ip-ranges"
+}
+
 resource "cloudfoundry_app" "nginx" {
   buildpack  = "nginx_buildpack"
   disk_quota = var.disk_quota
   environment = {
-    ALLOWED_IPS : var.allowed_ips
+    ALLOWED_IPS : join("\n", [data.aws_ssm_parameter.allowed_ip_ranges.value, data.aws_ssm_parameter.env_allowed_ip_ranges.value])
   }
   health_check_timeout       = var.healthcheck_timeout
   health_check_type          = "http"

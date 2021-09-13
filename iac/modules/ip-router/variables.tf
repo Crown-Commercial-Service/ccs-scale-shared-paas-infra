@@ -12,15 +12,9 @@ variable "healthcheck_timeout" {
   default = 10
 }
 
-variable "instances" {
-  default = 1
-}
+variable "instances" {}
 
-variable "memory" {
-  default = 256
-}
-
-variable "allowed_ips" {}
+variable "memory" {}
 
 variable "region_domain" {
   default = "london.cloudapps.digital"
