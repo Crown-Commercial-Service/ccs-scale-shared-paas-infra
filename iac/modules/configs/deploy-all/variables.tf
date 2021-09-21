@@ -10,6 +10,14 @@ variable "agreements_db_service_plan" {
   default = "small-ha-12"
 }
 
+variable "agreements_db_create_timeout" {
+  default = "30m"
+}
+
+variable "agreements_db_delete_timeout" {
+  default = "30m"
+}
+
 variable "cf_username" {
   sensitive = true
 }
