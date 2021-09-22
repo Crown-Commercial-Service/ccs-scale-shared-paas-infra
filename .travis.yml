@@ -52,7 +52,7 @@ deploy:
 # UAT    
 - provider: script
   skip_cleanup: true
-  script: CF_ENVIRONMENT=int bash ./deploy.sh
+  script: CF_ENVIRONMENT=uat bash ./deploy.sh
   on:
     branch: release/uat
     
