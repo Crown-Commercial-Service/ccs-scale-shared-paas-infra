@@ -55,7 +55,14 @@ deploy:
   script: CF_ENVIRONMENT=uat bash ./deploy.sh
   on:
     branch: release/uat
-    
+
+# REF    
+- provider: script
+  skip_cleanup: true
+  script: CF_ENVIRONMENT=ref bash ./deploy.sh
+  on:
+    branch: release/ref
+
 env:
   global:
   # AWS_ACCESS_KEY_ID 
