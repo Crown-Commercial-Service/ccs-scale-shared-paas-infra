@@ -21,12 +21,12 @@ data "archive_file" "nginx" {
 }
 
 data "aws_ssm_parameter" "allowed_ip_ranges" {
-  name = "/cat/default/allowed-ip-ranges"
+  name = "/shared/default/allowed-ip-ranges"
 }
 
 # Must be present, may be ' '
 data "aws_ssm_parameter" "env_allowed_ip_ranges" {
-  name = "/cat/${var.environment}/allowed-ip-ranges"
+  name = "/shared/${var.environment}/allowed-ip-ranges"
 }
 
 resource "cloudfoundry_app" "nginx" {
