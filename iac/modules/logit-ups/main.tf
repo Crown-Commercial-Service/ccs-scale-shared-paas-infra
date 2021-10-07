@@ -13,7 +13,7 @@ data "cloudfoundry_space" "cloudfoundry_space" {
 }
 
 data "aws_ssm_parameter" "env_syslog_drain_url" {
-  name = "/cat/${var.environment}/syslog-drain-url"
+  name = "/shared/${var.environment}/syslog-drain-url"
 }
 
 resource "cloudfoundry_user_provided_service" "logit_service_broker_service" {
