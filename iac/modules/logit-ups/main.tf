@@ -12,8 +12,12 @@ data "cloudfoundry_space" "cloudfoundry_space" {
   org  = data.cloudfoundry_org.shared.id
 }
 
+data "aws_ssm_parameter" "env_syslog_drain_url" {
+  name = "/shared/${var.environment}/syslog-drain-url"
+}
+
 resource "cloudfoundry_user_provided_service" "logit_service_broker_service" {
   name             = "${var.environment}-ccs-scale-shared-${var.logit_service_broker_name}"
   space            = data.cloudfoundry_space.cloudfoundry_space.id
-  syslog_drain_url = var.syslog_drain_url
+  syslog_drain_url = data.aws_ssm_parameter.env_syslog_drain_url.value
 }
