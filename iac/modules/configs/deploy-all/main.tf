@@ -16,12 +16,12 @@ module "agreements-database" {
 }
 
 module "logit-ups" {
-  source           = "../../logit-ups"
-  organisation     = var.organisation
-  space            = var.space
-  environment      = var.environment
-  cf_username      = var.cf_username
-  cf_password      = var.cf_password
+  source       = "../../logit-ups"
+  organisation = var.organisation
+  space        = var.space
+  environment  = var.environment
+  cf_username  = var.cf_username
+  cf_password  = var.cf_password
 }
 
 module "ip-router" {
