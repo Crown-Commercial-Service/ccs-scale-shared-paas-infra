@@ -56,12 +56,19 @@ deploy:
   on:
     branch: release/uat
 
-# REF    
+# REF
 - provider: script
   skip_cleanup: true
   script: CF_ENVIRONMENT=ref bash ./deploy.sh
   on:
     branch: release/ref
+
+# PRE    
+- provider: script
+  skip_cleanup: true
+  script: CF_ENVIRONMENT=pre bash ./deploy.sh
+  on:
+    branch: release/pre
 
 env:
   global:
