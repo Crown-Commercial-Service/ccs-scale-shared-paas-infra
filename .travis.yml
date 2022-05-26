@@ -70,6 +70,13 @@ deploy:
   on:
     branch: release/pre
 
+# PRD    
+- provider: script
+  skip_cleanup: true
+  script: CF_ENVIRONMENT=prd bash ./deploy.sh
+  on:
+    branch: release/prd
+
 env:
   global:
   # AWS_ACCESS_KEY_ID 
