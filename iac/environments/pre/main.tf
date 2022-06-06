@@ -1,14 +1,15 @@
 #########################################################
-# Environment: SBX1
+# Environment: Pre-production
 #
 # Deploy shared resources
 #########################################################
 module "deploy-all" {
   source                     = "../../modules/configs/deploy-all"
-  space                      = "sandbox"
-  environment                = "sbx1"
+  space                      = "pre-production"
+  environment                = "pre"
   cf_username                = var.cf_username
   cf_password                = var.cf_password
-  ip_router_instances        = 1
-  agreements_db_service_plan = "tiny-unencrypted-12-high-iops"
+  agreements_db_service_plan = "medium-ha-12-high-iops"
+  ip_router_instances        = 3
+  ip_router_memory           = 2048
 }

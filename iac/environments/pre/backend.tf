@@ -11,7 +11,7 @@
 #########################################################
 terraform {
   backend "s3" {
-    key     = "ccs-scale-shared-paas-infra-int"
+    key     = "ccs-scale-shared-paas-infra-pre"
     region  = "eu-west-2"
     encrypt = true
   }
