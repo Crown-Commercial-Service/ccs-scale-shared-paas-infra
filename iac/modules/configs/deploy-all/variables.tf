@@ -7,7 +7,7 @@ variable "space" {}
 variable "environment" {}
 
 variable "agreements_db_service_plan" {
-  default = "small-ha-12"
+  default = "medium-ha-13"
 }
 
 variable "agreements_db_create_timeout" {
